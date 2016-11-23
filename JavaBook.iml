@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/net/mindview" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/net/mindview/simple" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/net/mindview/util" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/typeinfo" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/typeinfo/factory" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/typeinfo/interfacea" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/typeinfo/packageaccess" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/typeinfo/pets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/typeinfo/toys" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/generics" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/generics/coffee" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/net" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/arrays" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/strings" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/example" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/containers" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Util" level="project" />
+  </component>
+</module>
