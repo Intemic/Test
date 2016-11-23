@@ -3,10 +3,7 @@ package example;
 import net.mindview.util.CountingGenerator;
 import net.mindview.util.Countries;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * Created by Anton on 21.11.2016.
@@ -18,6 +15,7 @@ public class ELists {
         ArrayList<String> rt = new ArrayList<String>();
         Iterator<String> it;
         ListIterator<String> li;
+        List<String> ls;
 
         al.addAll(Countries.names(5));
         ll.addAll(Countries.names(10));
