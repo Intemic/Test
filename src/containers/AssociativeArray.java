@@ -1,6 +1,11 @@
 package containers;//: containers/AssociativeArray.java
 // Associates keys with values.
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
 import static net.mindview.util.Print.*;
 
 public class AssociativeArray<K, V> {
@@ -37,9 +42,14 @@ public class AssociativeArray<K, V> {
         return result.toString();
     }
 
+
     public static void main(String[] args) {
-        AssociativeArray<String, String> map =
-                new AssociativeArray<String, String>(6);
+//        AssociativeArray<String, String> map =
+//                new AssociativeArray<String, String>(6);
+       // Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new LinkedHashMap<String, String>();
+
+
         map.put("sky", "blue");
         map.put("grass", "green");
         map.put("ocean", "dancing");
