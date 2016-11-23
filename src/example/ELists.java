@@ -53,7 +53,6 @@ public class ELists {
             li.previous();
         }
 
-        System.out.println("Result");
         System.out.println("Revers  al =" + al);
 
     }
