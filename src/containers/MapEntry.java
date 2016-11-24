@@ -32,7 +32,8 @@ public class MapEntry<K, V> implements Map.Entry<K, V> {
     }
 
     public boolean equals(Object o) {
-        if (!(o instanceof MapEntry)) return false;
+        if (!(o instanceof MapEntry))
+            return false;
         MapEntry me = (MapEntry) o;
         return
                 (key == null ?
