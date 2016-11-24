@@ -31,6 +31,13 @@ public class EWords {
         }
 
 
+        for (String s : al) {
+            if (aa.get(s) == null)
+                aa.put(s, 1);
+            else
+                aa.put(s, aa.get(s) + 1);
+        }
+
         for(Map.Entry<String, Integer> mp : aa.entrySet()){
           System.out.println("[" + mp.getKey() + "=" + mp.getValue() +"]");
         }
