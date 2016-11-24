@@ -13,23 +13,21 @@ import java.util.Map;
 public class EWords {
     public static void main(String[] arg) {
         ArrayList<String> al = new TextFile("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\example\\text.txt", "\\s");
+        AssociativeArray<String, Integer> aa = new AssociativeArray<String, Integer>(30);
         SlowMap<String, Integer> sl = new SlowMap<String, Integer>();
         for (String s : al) {
           // System.out.println(s);
-
-//            try {
+            try {
                 if (aa.get(s) == null)
                     aa.put(s, 1);
                 else
                     aa.put(s, aa.get(s) + 1);
-/*
+
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Error");
                 break;
             }
-*/
         }
-
 
         for (String s : al) {
             if (sl.get(s) == null)
