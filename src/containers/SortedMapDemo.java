@@ -27,13 +27,6 @@ public class SortedMapDemo {
             else it.next();
         }
 
-
-/*
-        for (int i = 0; i <= 6; i++) {
-            System.out.println(it.next());
-        }
-*/
-
         print("low  = " + low);
         print("high = " + high);
         print(sortedMap.subMap(low, high));
