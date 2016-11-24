@@ -13,7 +13,7 @@ import java.util.Map;
 public class EWords {
     public static void main(String[] arg) {
         ArrayList<String> al = new TextFile("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\example\\text.txt", "\\s");
-        SlowMap<String, Integer> aa = new SlowMap<String, Integer>();
+        SlowMap<String, Integer> sl = new SlowMap<String, Integer>();
         for (String s : al) {
           // System.out.println(s);
 
@@ -32,13 +32,13 @@ public class EWords {
 
 
         for (String s : al) {
-            if (aa.get(s) == null)
-                aa.put(s, 1);
+            if (sl.get(s) == null)
+                sl.put(s, 1);
             else
-                aa.put(s, aa.get(s) + 1);
+                sl.put(s, sl.get(s) + 1);
         }
 
-        for(Map.Entry<String, Integer> mp : aa.entrySet()){
+        for(Map.Entry<String, Integer> mp : sl.entrySet()){
           System.out.println("[" + mp.getKey() + "=" + mp.getValue() +"]");
         }
 
