@@ -16,14 +16,26 @@ public class SortedMapDemo {
         Integer high = sortedMap.lastKey();
         print(low);
         print(high);
+        System.out.println("keySet = " + sortedMap.keySet());
         Iterator<Integer> it = sortedMap.keySet().iterator();
+
         for (int i = 0; i <= 6; i++) {
-            if (i == 3) low = it.next();
-            if (i == 6) high = it.next();
+            if (i == 3)
+                low = it.next();
+            if (i == 6)
+                high = it.next();
             else it.next();
         }
-        print(low);
-        print(high);
+
+
+/*
+        for (int i = 0; i <= 6; i++) {
+            System.out.println(it.next());
+        }
+*/
+
+        print("low  = " + low);
+        print("high = " + high);
         print(sortedMap.subMap(low, high));
         print(sortedMap.headMap(high));
         print(sortedMap.tailMap(low));
