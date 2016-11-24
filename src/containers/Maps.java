@@ -48,6 +48,7 @@ public class Maps {
         test(new IdentityHashMap<Integer, String>());
         test(new ConcurrentHashMap<Integer, String>());
         test(new WeakHashMap<Integer, String>());
+        test(new SlowMap<Integer, String>());
         //test(new Properties());
     }
 } /* Output:
