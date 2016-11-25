@@ -19,8 +19,7 @@ class EMySet<T> extends AbstractSet<T> {
         }
 
         public T next() {
-          String st = (String) it.next();
-            return (T) st; //it.next();
+            return it.next();
         }
 
         public void remove() {
@@ -29,7 +28,7 @@ class EMySet<T> extends AbstractSet<T> {
     }
 
     public SIterator iterator() {
-        return si;
+        return new SIterator();
     }
 
     public int size() {
@@ -38,11 +37,10 @@ class EMySet<T> extends AbstractSet<T> {
 
     public boolean add(T e) {
         if (!values.contains(e))
-          return values.add(e);
+            return values.add(e);
         else
-          return false;
+            return false;
     }
-
 }
 
 
@@ -51,6 +49,7 @@ public class ESlowSet {
         EMySet<String> es = new EMySet<String>();
         for (int i = 0; i < 10; i++)
             es.add("Value");
-       // System.out.println(es);
+        System.out.println(es);
+
     }
 }
