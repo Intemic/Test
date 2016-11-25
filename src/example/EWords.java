@@ -12,9 +12,13 @@ import java.util.Map;
  */
 public class EWords {
     public static void main(String[] arg) {
-        ArrayList<String> al = new TextFile("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\example\\text.txt", "\\s");
-        AssociativeArray<String, Integer> aa = new AssociativeArray<String, Integer>(30);
+        //ArrayList<String> al = new TextFile("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\example\\text.txt", "\\s");
+        ArrayList<String> al =
+                new TextFile("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\net\\mindview\\util\\TextFile.java", "(\\s)|(\\;)|(\\,)|(\\.)|(\\{)|(\\})");
+        //AssociativeArray<String, Integer> aa = new AssociativeArray<String, Integer>(30);
         SlowMap<String, Integer> sl = new SlowMap<String, Integer>();
+
+        /*
         for (String s : al) {
           // System.out.println(s);
             try {
@@ -28,20 +32,20 @@ public class EWords {
                 break;
             }
         }
+        */
 
         for (String s : al) {
+            if (s == " ")
+                continue;
+
             if (sl.get(s) == null)
                 sl.put(s, 1);
             else
                 sl.put(s, sl.get(s) + 1);
         }
 
-        for(Map.Entry<String, Integer> mp : sl.entrySet()){
-          System.out.println("[" + mp.getKey() + "=" + mp.getValue() +"]");
+        for (Map.Entry<String, Integer> mp : sl.entrySet()) {
+            System.out.println("[" + mp.getKey() + "=" + mp.getValue() + "]");
         }
-
-
-       // System.out.println(al);
     }
-
 }
