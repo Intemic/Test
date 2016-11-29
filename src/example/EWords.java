@@ -15,17 +15,27 @@ public class EWords {
         //ArrayList<String> al = new TextFile("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\example\\text.txt", "\\s");
         ArrayList<String> al =
                 new TextFile("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\net\\mindview\\util\\TextFile.java", "(\\s)|(\\;)|(\\,)|(\\.)|(\\{)|(\\})");
-        //AssociativeArray<String, Integer> aa = new AssociativeArray<String, Integer>(30);
+        AssociativeArray<String, Integer> aa = new AssociativeArray<String, Integer>(100);
+        AssociativeArray<String, Integer> a2;
         SlowMap<String, Integer> sl = new SlowMap<String, Integer>();
 
         /*
         for (String s : al) {
-          // System.out.println(s);
+            // System.out.println(s);
+            if (s == " ")
+                continue;
+
             try {
                 if (aa.get(s) == null)
                     aa.put(s, 1);
-                else
-                    aa.put(s, aa.get(s) + 1);
+                else{
+                   a2 = new AssociativeArray<>(100);
+                   for(){
+
+                   }
+                   aa.put(s, aa.get(s) + 1);
+                }
+
 
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Error");
@@ -33,6 +43,7 @@ public class EWords {
             }
         }
         */
+
 
         for (String s : al) {
             if (s == " ")
