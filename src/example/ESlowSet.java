@@ -28,7 +28,7 @@ class EMySet<T> extends AbstractSet<T> {
     }
 
     public SIterator iterator() {
-        return new SIterator();
+        return new SIterator();           //si; //
     }
 
     public int size() {
