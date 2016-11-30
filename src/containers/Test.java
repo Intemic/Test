@@ -10,5 +10,5 @@ public abstract class Test<C> {
 
     // Override this method for different tests.
     // Returns actual number of repetitions of test.
-    abstract int test(C container, TestParam tp);
+    abstract public int test(C container, TestParam tp);
 } ///:~
