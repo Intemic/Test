@@ -1,6 +1,8 @@
 package containers;//: containers/CountedString.java
 // Creating a good hashCode().
 
+import net.mindview.util.CountingGenerator;
+
 import java.util.*;
 
 import static net.mindview.util.Print.*;
@@ -8,11 +10,15 @@ import static net.mindview.util.Print.*;
 public class CountedString {
     private static List<String> created =
             new ArrayList<String>();
+    private static String[] charact = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z".split(" ");
+
     private String s;
     private int id = 0;
+    private char ch;
 
     public CountedString(String str) {
         s = str;
+        ch =  charact[id].charAt(0);
         created.add(s);
         // id is the total number of instances
         // of this string in use by CountedString:
@@ -22,7 +28,7 @@ public class CountedString {
     }
 
     public String toString() {
-        return "String: " + s + " id: " + id +
+        return "String: " + s + " id: " + id + " ch:" + ch +
                 " hashCode(): " + hashCode();
     }
 
@@ -33,13 +39,15 @@ public class CountedString {
         int result = 17;
         result = 37 * result + s.hashCode();
         result = 37 * result + id;
+        result = 37 * result + (int) ch;
         return result;
     }
 
     public boolean equals(Object o) {
         return o instanceof CountedString &&
                 s.equals(((CountedString) o).s) &&
-                id == ((CountedString) o).id;
+                id == ((CountedString) o).id &&
+                ch == ((CountedString) o).ch;
     }
 
     public static void main(String[] args) {
