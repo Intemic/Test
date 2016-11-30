@@ -18,13 +18,13 @@ public class CountedString {
 
     public CountedString(String str) {
         s = str;
-        ch =  charact[id].charAt(0);
         created.add(s);
         // id is the total number of instances
         // of this string in use by CountedString:
         for (String s2 : created)
             if (s2.equals(s))
                 id++;
+        ch =  charact[id - 1].charAt(0);
     }
 
     public String toString() {
