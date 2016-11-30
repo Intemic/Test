@@ -14,7 +14,7 @@ class Cup {
 }
 
 class Cups {
-    static Cup cup1;
+    static Cup cup1 = new Cup(3);
     static Cup cup2;
 
     static {
