@@ -16,7 +16,7 @@ public class ListPerformance {
 
     static {
         tests.add(new Test<List<Integer>>("add") {
-            int test(List<Integer> list, TestParam tp) {
+           public int test(List<Integer> list, TestParam tp) {
                 int loops = tp.loops;
                 int listSize = tp.size;
                 for (int i = 0; i < loops; i++) {
@@ -28,7 +28,7 @@ public class ListPerformance {
             }
         });
         tests.add(new Test<List<Integer>>("get") {
-            int test(List<Integer> list, TestParam tp) {
+           public int test(List<Integer> list, TestParam tp) {
                 int loops = tp.loops * reps;
                 int listSize = list.size();
                 for (int i = 0; i < loops; i++)
@@ -37,7 +37,7 @@ public class ListPerformance {
             }
         });
         tests.add(new Test<List<Integer>>("set") {
-            int test(List<Integer> list, TestParam tp) {
+           public int test(List<Integer> list, TestParam tp) {
                 int loops = tp.loops * reps;
                 int listSize = list.size();
                 for (int i = 0; i < loops; i++)
@@ -46,7 +46,7 @@ public class ListPerformance {
             }
         });
         tests.add(new Test<List<Integer>>("iteradd") {
-            int test(List<Integer> list, TestParam tp) {
+           public int test(List<Integer> list, TestParam tp) {
                 final int LOOPS = 1000000;
                 int half = list.size() / 2;
                 ListIterator<Integer> it = list.listIterator(half);
@@ -56,7 +56,7 @@ public class ListPerformance {
             }
         });
         tests.add(new Test<List<Integer>>("insert") {
-            int test(List<Integer> list, TestParam tp) {
+           public int test(List<Integer> list, TestParam tp) {
                 int loops = tp.loops;
                 for (int i = 0; i < loops; i++)
                     list.add(5, 47); // Minimize random-access cost
@@ -64,7 +64,7 @@ public class ListPerformance {
             }
         });
         tests.add(new Test<List<Integer>>("remove") {
-            int test(List<Integer> list, TestParam tp) {
+           public int test(List<Integer> list, TestParam tp) {
                 int loops = tp.loops;
                 int size = tp.size;
                 for (int i = 0; i < loops; i++) {
@@ -78,7 +78,7 @@ public class ListPerformance {
         });
         // Tests for queue behavior:
         qTests.add(new Test<LinkedList<Integer>>("addFirst") {
-            int test(LinkedList<Integer> list, TestParam tp) {
+           public int test(LinkedList<Integer> list, TestParam tp) {
                 int loops = tp.loops;
                 int size = tp.size;
                 for (int i = 0; i < loops; i++) {
@@ -90,7 +90,7 @@ public class ListPerformance {
             }
         });
         qTests.add(new Test<LinkedList<Integer>>("addLast") {
-            int test(LinkedList<Integer> list, TestParam tp) {
+           public int test(LinkedList<Integer> list, TestParam tp) {
                 int loops = tp.loops;
                 int size = tp.size;
                 for (int i = 0; i < loops; i++) {
@@ -103,7 +103,7 @@ public class ListPerformance {
         });
         qTests.add(
                 new Test<LinkedList<Integer>>("rmFirst") {
-                    int test(LinkedList<Integer> list, TestParam tp) {
+                   public int test(LinkedList<Integer> list, TestParam tp) {
                         int loops = tp.loops;
                         int size = tp.size;
                         for (int i = 0; i < loops; i++) {
@@ -116,7 +116,7 @@ public class ListPerformance {
                     }
                 });
         qTests.add(new Test<LinkedList<Integer>>("rmLast") {
-            int test(LinkedList<Integer> list, TestParam tp) {
+           public int test(LinkedList<Integer> list, TestParam tp) {
                 int loops = tp.loops;
                 int size = tp.size;
                 for (int i = 0; i < loops; i++) {
