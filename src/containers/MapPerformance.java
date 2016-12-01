@@ -11,7 +11,7 @@ public class MapPerformance {
 
     static {
         tests.add(new Test<Map<Integer, Integer>>("put") {
-            int test(Map<Integer, Integer> map, TestParam tp) {
+            public int test(Map<Integer, Integer> map, TestParam tp) {
                 int loops = tp.loops;
                 int size = tp.size;
                 for (int i = 0; i < loops; i++) {
@@ -23,7 +23,7 @@ public class MapPerformance {
             }
         });
         tests.add(new Test<Map<Integer, Integer>>("get") {
-            int test(Map<Integer, Integer> map, TestParam tp) {
+            public int test(Map<Integer, Integer> map, TestParam tp) {
                 int loops = tp.loops;
                 int span = tp.size * 2;
                 for (int i = 0; i < loops; i++)
@@ -33,7 +33,7 @@ public class MapPerformance {
             }
         });
         tests.add(new Test<Map<Integer, Integer>>("iterate") {
-            int test(Map<Integer, Integer> map, TestParam tp) {
+            public int test(Map<Integer, Integer> map, TestParam tp) {
                 int loops = tp.loops * 10;
                 for (int i = 0; i < loops; i++) {
                     Iterator it = map.entrySet().iterator();
