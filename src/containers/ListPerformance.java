@@ -76,6 +76,20 @@ public class ListPerformance {
                 return loops * size;
             }
         });
+        tests.add(new Test<List<Integer>>("sort") {
+            public int test(List<Integer> list, TestParam tp) {
+                int loops = tp.loops;
+                int size = tp.size;
+                for (int i = 0; i < loops; i++) {
+                    list.clear();
+                    list.addAll(new CountingIntegerList(size));
+                    Collections.sort(list);
+//                    while (list.size() > 5)
+//                        list.remove(5); // Minimize random-access cost
+                }
+                return loops * size;
+            }
+        });
         // Tests for queue behavior:
         qTests.add(new Test<LinkedList<Integer>>("addFirst") {
            public int test(LinkedList<Integer> list, TestParam tp) {

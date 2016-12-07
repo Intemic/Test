@@ -171,6 +171,25 @@ public class EListPerformance {
                 };
         arrayTest.setHeadline("Array as List");
         arrayTest.timedTest();
+
+        List<Test<List<String>>> ls = new ArrayList<Test<List<String>>>();
+        ls.add(tests.get(0));
+        ls.add(tests.get(5));
+
+        Tester<List<String>> arrayString =
+                new Tester<List<String>>(new EContString(), ls) {
+                    // This will be called before each test. It
+                    // produces a non-resizeable array-backed list:
+                    @Override
+                    protected List<String> initialize(int size) {
+                        String[] ia = Generated.array(String.class,
+                                new RandomGenerator.String(), size);
+                        return new EContString(ia); //Arrays.asList(ia);
+                    }
+                };
+        arrayString.setHeadline("Array EContString");
+        arrayString.timedTest();
+
         Tester.defaultParams = TestParam.array(
                 10, 5000, 100, 5000, 1000, 1000, 10000, 200);
         if (args.length > 0)
