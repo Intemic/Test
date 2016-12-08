@@ -9,6 +9,7 @@ public class ListSortSearch {
     public static void main(String[] args) {
         List<String> list =
                 new ArrayList<String>(Utilities.list);
+        //System.out.println(list);
         list.addAll(Utilities.list);
         print(list);
         Collections.shuffle(list, new Random(47));
