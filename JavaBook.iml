@@ -22,6 +22,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/containers" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/holding" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/initialization" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/io" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

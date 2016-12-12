@@ -2,6 +2,7 @@ package example;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import net.mindview.util.*;
@@ -33,6 +34,10 @@ public class ETwoString implements Comparable<ETwoString>{
     public String toString(){
       return "First - " + first + (second != null ? ", Second - " + second : " ");
     }
+
+   // public int equals(){
+   //   HashSet
+   // }
 
     public static void main(String[] arg){
         RandomGenerator.String gen = new RandomGenerator.String();
