@@ -2,6 +2,9 @@ package io;//: io/DirList.java
 // Display a directory listing using regular expressions.
 // {Args: "D.*\.java"}
 
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.regex.*;
 import java.io.*;
 import java.util.*;
@@ -22,7 +25,7 @@ public class DirList {
             list = path.list(new DirFilter(args[0]));
         Arrays.sort(list, String.CASE_INSENSITIVE_ORDER);
         for (String dirItem : list)
-            System.out.println(dirItem);
+            System.out.println("File - " + dirItem + ",  size - " + new File(path.getPath() + "\\" + dirItem).length() + " Б");
     }
 }
 
