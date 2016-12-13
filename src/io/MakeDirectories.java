@@ -34,11 +34,12 @@ public class MakeDirectories {
     }
 
     public static void main(String[] args) {
-        if (args.length < 1) usage();
+        if (args.length < 1)
+            usage();
         if (args[0].equals("-r")) {
-            if (args.length != 3) usage();
-            File
-                    old = new File(args[1]),
+            if (args.length != 3)
+                usage();
+            File    old = new File(args[1]),
                     rname = new File(args[2]);
             old.renameTo(rname);
             fileData(old);
