@@ -13,6 +13,8 @@ public class EDirectory {
         String ei;
         Directory.TreeInfo ti = null;
 
+        //arg[1] = "R.*\\.java";
+
         if (arg.length == 0)
             ti = Directory.walk(".", ".*\\..*");
         else if (arg.length == 1)
