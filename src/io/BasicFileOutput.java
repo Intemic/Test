@@ -3,13 +3,13 @@ package io;//: io/BasicFileOutput.java
 import java.io.*;
 
 public class BasicFileOutput {
-    static String file = "BasicFileOutput.out";
+    static String file = "C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\io\\BasicFileOutput.out";
 
     public static void main(String[] args)
             throws IOException {
         BufferedReader in = new BufferedReader(
                 new StringReader(
-                        BufferedInputFile.read("BasicFileOutput.java")));
+                        BufferedInputFile.read("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\io\\BasicFileOutput.java")));
         PrintWriter out = new PrintWriter(
                 new BufferedWriter(new FileWriter(file)));
         int lineCount = 1;
