@@ -6,13 +6,17 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Anton on 15.12.2016.
  */
 public class EBufferedInputFile {
     // Throw exceptions to console:
-    public static String read(String filename) throws IOException {
+    public static String read(String filename, String regx) throws IOException {
+        Matcher mt = Pattern.compile(regx).matcher("");
+        //Pattern pt = Pattern.compile(regx);
         LinkedList<String> ll = new LinkedList<>();
 
         // Reading input by lines:
@@ -21,7 +25,9 @@ public class EBufferedInputFile {
         String s;
         StringBuilder sb = new StringBuilder();
         while ((s = in.readLine()) != null)
-            ll.add(s);
+            if (mt.reset(s).find())
+                ll.add(s);
+
         in.close();
 
         ListIterator<String> li = ll.listIterator(ll.size());
@@ -33,6 +39,12 @@ public class EBufferedInputFile {
 
     public static void main(String[] args)
             throws IOException {
-        System.out.print(read("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\io\\BufferedInputFile.java"));
+        String fileName = null;
+        if (args.length != 2) {
+            System.out.println("Введите имя файла, шаблон поиска");
+            System.exit(1);
+        }
+
+        System.out.print(read(args[0], args[1]));
     }
 }
