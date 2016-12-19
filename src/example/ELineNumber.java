@@ -14,8 +14,7 @@ public class ELineNumber {
             throws IOException {
 
         LineNumberReader in = new LineNumberReader(new BufferedReader(
-                new StringReader(
-                        BufferedInputFile.read("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\io\\BasicFileOutput.java"))));
+                new StringReader( BufferedInputFile.read("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\io\\BasicFileOutput.java"))));
 
         PrintWriter out = new PrintWriter(
                 new BufferedWriter(new FileWriter(file)));
