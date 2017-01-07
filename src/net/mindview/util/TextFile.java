@@ -10,11 +10,11 @@ public class TextFile extends ArrayList<String> {
   public static String read(String fileName) {
     StringBuilder sb = new StringBuilder();
     try {
-//      BufferedReader in= new BufferedReader(new FileReader(
-//        new File(fileName).getAbsoluteFile()));
-      File fl = new File(fileName);
-      fl = fl.getAbsoluteFile();
-      BufferedReader in= new BufferedReader(new FileReader(fl));
+      BufferedReader in= new BufferedReader(new FileReader(
+         new File(fileName).getAbsoluteFile()));
+//      File fl = new File(fileName);
+//      fl = fl.getAbsoluteFile();
+//      BufferedReader in= new BufferedReader(new FileReader(fl));
       try {
         String s;
         while((s = in.readLine()) != null) {
