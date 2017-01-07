@@ -18,7 +18,7 @@ public class GZIPcompress {
                 new FileReader(args[0]));
         BufferedOutputStream out = new BufferedOutputStream(
                 new GZIPOutputStream(
-                        new FileOutputStream("test.gz")));
+                        new FileOutputStream("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\io\\test.gz")));
         System.out.println("Writing file");
         int c;
         while ((c = in.read()) != -1)
@@ -28,7 +28,7 @@ public class GZIPcompress {
         System.out.println("Reading file");
         BufferedReader in2 = new BufferedReader(
                 new InputStreamReader(new GZIPInputStream(
-                        new FileInputStream("test.gz"))));
+                        new FileInputStream("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\io\\test.gz"))));
         String s;
         while ((s = in2.readLine()) != null)
             System.out.println(s);
