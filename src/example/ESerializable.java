@@ -24,5 +24,6 @@ public class ESerializable implements Serializable {
     ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bou.toByteArray()));
     ESerializable rt = (ESerializable)in.readObject();
     System.out.println("After - " + rt.lst);
+    System.out.println("finish");
  }
 }
