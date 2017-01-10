@@ -3,6 +3,7 @@ package io;//: io/RecoverCADState.java
 // {RunFirst: StoreCADState}
 
 import java.io.*;
+import java.lang.reflect.Method;
 import java.util.*;
 
 public class RecoverCADState {
@@ -11,8 +12,28 @@ public class RecoverCADState {
         ObjectInputStream in = new ObjectInputStream(
                 new FileInputStream("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\io\\CADState.out"));
         // Read in the same order they were written:
+//        List<Class<? extends Shape>> shapeTypes =
+//                (List<Class<? extends Shape>>) in.readObject();
         List<Class<? extends Shape>> shapeTypes =
-                (List<Class<? extends Shape>>) in.readObject();
+                new ArrayList<Class<? extends Shape>>();
+        // Add references to the class objects:
+        shapeTypes.add(Circle.class);
+        shapeTypes.add(Square.class);
+        shapeTypes.add(Line.class);
+        Method[] mtds = shapeTypes.get(0).getMethods();
+
+/*
+        for (Method mtd : mtds)
+          System.out.println(mtd.getName());
+
+        for (Class<? extends Shape> cls : shapeTypes) {
+            Method mth = cls.getMethod("deserializeStaticState", ObjectInputStream.class);
+            mth.invoke(cls.newInstance(), in);
+        }
+*/
+
+        Circle.deserializeStaticState(in);
+        Square.deserializeStaticState(in);
         Line.deserializeStaticState(in);
         List<Shape> shapes = (List<Shape>) in.readObject();
         System.out.println(shapes);

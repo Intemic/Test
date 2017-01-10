@@ -46,6 +46,18 @@ abstract class Shape implements Serializable {
 class Circle extends Shape {
     private static int color = RED;
 
+    public static void
+    serializeStaticState(ObjectOutputStream os)
+            throws IOException {
+        os.writeInt(color);
+    }
+
+    public static void
+    deserializeStaticState(ObjectInputStream os)
+            throws IOException {
+        color = os.readInt();
+    }
+
     public Circle(int xVal, int yVal, int dim) {
         super(xVal, yVal, dim);
     }
@@ -61,6 +73,18 @@ class Circle extends Shape {
 
 class Square extends Shape {
     private static int color;
+
+    public static void
+    serializeStaticState(ObjectOutputStream os)
+            throws IOException {
+        os.writeInt(color);
+    }
+
+    public static void
+    deserializeStaticState(ObjectInputStream os)
+            throws IOException {
+        color = os.readInt();
+    }
 
     public Square(int xVal, int yVal, int dim) {
         super(xVal, yVal, dim);
@@ -106,12 +130,14 @@ class Line extends Shape {
 
 public class StoreCADState {
     public static void main(String[] args) throws Exception {
+/*
         List<Class<? extends Shape>> shapeTypes =
                 new ArrayList<Class<? extends Shape>>();
         // Add references to the class objects:
         shapeTypes.add(Circle.class);
         shapeTypes.add(Square.class);
         shapeTypes.add(Line.class);
+*/
         List<Shape> shapes = new ArrayList<Shape>();
         // Make some shapes:
         for (int i = 0; i < 10; i++)
@@ -122,7 +148,9 @@ public class StoreCADState {
         // Save the state vector:
         ObjectOutputStream out = new ObjectOutputStream(
                 new FileOutputStream("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\io\\CADState.out"));
-        out.writeObject(shapeTypes);
+//        out.writeObject(shapeTypes);
+        Circle.serializeStaticState(out);
+        Square.serializeStaticState(out);
         Line.serializeStaticState(out);
         out.writeObject(shapes);
         // Display the shapes:
