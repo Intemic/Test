@@ -23,10 +23,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src/holding" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/initialization" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/io" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/xml" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Util" level="project" />
     <orderEntry type="library" name="src" level="project" />
+    <orderEntry type="library" name="xom-1.2.10" level="project" />
   </component>
 </module>
