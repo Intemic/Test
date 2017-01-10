@@ -121,7 +121,7 @@ public class StoreCADState {
           ((Shape) shapes.get(i)).setColor(Shape.GREEN);
         // Save the state vector:
         ObjectOutputStream out = new ObjectOutputStream(
-                new FileOutputStream("CADState.out"));
+                new FileOutputStream("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\io\\CADState.out"));
         out.writeObject(shapeTypes);
         Line.serializeStaticState(out);
         out.writeObject(shapes);

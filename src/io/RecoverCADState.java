@@ -9,7 +9,7 @@ public class RecoverCADState {
     @SuppressWarnings("unchecked")
     public static void main(String[] args) throws Exception {
         ObjectInputStream in = new ObjectInputStream(
-                new FileInputStream("CADState.out"));
+                new FileInputStream("C:\\Users\\Anton\\IdeaProjects\\JavaBook\\src\\io\\CADState.out"));
         // Read in the same order they were written:
         List<Class<? extends Shape>> shapeTypes =
                 (List<Class<? extends Shape>>) in.readObject();
