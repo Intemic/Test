@@ -118,7 +118,7 @@ public class StoreCADState {
             shapes.add(Shape.randomFactory());
         // Set all the static colors to GREEN:
         for (int i = 0; i < 10; i++)
-            ((Shape) shapes.get(i)).setColor(Shape.GREEN);
+          ((Shape) shapes.get(i)).setColor(Shape.GREEN);
         // Save the state vector:
         ObjectOutputStream out = new ObjectOutputStream(
                 new FileOutputStream("CADState.out"));
