@@ -24,6 +24,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/initialization" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/io" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/xml" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/enumerated" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/enumerated/cartoons" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/enumerated/menu" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
