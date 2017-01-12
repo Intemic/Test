@@ -1,20 +1,20 @@
 package enumerated;//: enumerated/TrafficLight.java
 // Enums in switch statements.
 import static net.mindview.util.Print.*;
-
+import static enumerated.Signal.*;
 
 
 public class TrafficLight {
-  Signal color = Signal.RED;
+  Signal color = RED;
   public void change() {
     switch(color) {
       // Note that you don't have to say Signal.RED
       // in the case statement:
-      case RED:    color = Signal.GREEN;
+      case RED:    color = GREEN;
                    break;
-      case GREEN:  color = Signal.YELLOW;
+      case GREEN:  color = YELLOW;
                    break;
-      case YELLOW: color = Signal.RED;
+      case YELLOW: color = RED;
                    break;
     }
   }
