@@ -1,9 +1,8 @@
-//: enumerated/TrafficLight.java
+package enumerated;//: enumerated/TrafficLight.java
 // Enums in switch statements.
 import static net.mindview.util.Print.*;
 
-// Define an enum type:
-enum Signal { GREEN, YELLOW, RED, }
+
 
 public class TrafficLight {
   Signal color = Signal.RED;
