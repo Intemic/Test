@@ -24,7 +24,7 @@ public class PreferencesDemo {
         print("How many companions does Dorothy have? " +
                 prefs.getInt("Companions", 0));
 
-        HashMap
+
     }
 } /* Output: (Sample)
 Location: Oz
