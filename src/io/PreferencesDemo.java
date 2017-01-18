@@ -1,8 +1,5 @@
 package io;//: io/PreferencesDemo.java
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.prefs.*;
 
 import static net.mindview.util.Print.*;
@@ -23,8 +20,6 @@ public class PreferencesDemo {
         // You must always provide a default value:
         print("How many companions does Dorothy have? " +
                 prefs.getInt("Companions", 0));
-
-
     }
 } /* Output: (Sample)
 Location: Oz

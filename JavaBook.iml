@@ -24,14 +24,26 @@
       <sourceFolder url="file://$MODULE_DIR$/src/initialization" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/io" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/xml" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/enumerated" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/enumerated/cartoons" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/enumerated/menu" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/nu" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/nu/xom" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/nu/xom/benchmarks" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/nu/xom/canonical" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/nu/xom/converters" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/nu/xom/doc-files" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/nu/xom/samples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/nu/xom/tests" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/nu/xom/tools" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/nu/xom/xinclude" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/nu/xom/xslt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/com" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/com/intemic" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/com/intemic/Weather" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Util" level="project" />
     <orderEntry type="library" name="src" level="project" />
     <orderEntry type="library" name="xom-1.2.10" level="project" />
+    <orderEntry type="library" name="com.google.code.gson:gson:2.8.0" level="project" />
   </component>
 </module>
