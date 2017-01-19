@@ -106,7 +106,6 @@ public abstract class WeatherAbstract implements IWeather {
             URL url = new URL(urlSource);
             BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
             query = br.readLine();
-            //getData(br.readLine());
         } catch (IOException e) {
             throw new RuntimeException("Не удалось установить соединение");
         }

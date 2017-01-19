@@ -34,11 +34,12 @@ public class OpenWeather extends WeatherAbstract {
             // влажность %
             humidity = mainNode.get("humidity").asText();
             // атмосферное давление
-            atmPressure = converAtmPressureMM(Integer.parseInt(mainNode.get("pressure").asText()));
+            atmPressure = converAtmPressureMM(mainNode.get("pressure").asInt());
+//            atmPressure = converAtmPressureMM(Integer.parseInt(mainNode.get("pressure").asText()));
             // сила ветра
             windSpeed = windNode.get("speed").asText() + " м/с";
             // направление ветра
-            windDirect = convertWindDirect(Integer.parseInt(windNode.get("deg").asText()));
+            windDirect = convertWindDirect(windNode.get("deg").asInt());
             // название нас. пункта
             nameSity = rootNode.get("name").asText();
 
@@ -58,8 +59,8 @@ public class OpenWeather extends WeatherAbstract {
     }
 
     public static void main(String[] arg) {
-        String test = "{\"coord\":{\"lon\":73.42,\"lat\":61.25},\"weather\":[{\"id\":600,\"main\":\"Snow\",\"description\":\"light snow\",\"icon\":\"13d\"}],\"base\":\"stations\",\"main\":{\"temp\":-12,\"pressure\":1028,\"humidity\":100,\"temp_min\":-12,\"temp_max\":-12},\"visibility\":2800,\"wind\":{\"speed\":3,\"deg\":280},\"clouds\":{\"all\":40},\"dt\":1484719200,\"sys\":{\"type\":1,\"id\":7313,\"message\":0.0054,\"country\":\"RU\",\"sunrise\":1484711891,\"sunset\":1484735765},\"id\":1490624,\"name\":\"Surgut\",\"cod\":200}";
-        OpenWeather opw = new OpenWeather(SURGUT_ID);
-        System.out.println(opw);
+        //String test = "{\"coord\":{\"lon\":73.42,\"lat\":61.25},\"weather\":[{\"id\":600,\"main\":\"Snow\",\"description\":\"light snow\",\"icon\":\"13d\"}],\"base\":\"stations\",\"main\":{\"temp\":-12,\"pressure\":1028,\"humidity\":100,\"temp_min\":-12,\"temp_max\":-12},\"visibility\":2800,\"wind\":{\"speed\":3,\"deg\":280},\"clouds\":{\"all\":40},\"dt\":1484719200,\"sys\":{\"type\":1,\"id\":7313,\"message\":0.0054,\"country\":\"RU\",\"sunrise\":1484711891,\"sunset\":1484735765},\"id\":1490624,\"name\":\"Surgut\",\"cod\":200}";
+        IWeather iw = new OpenWeather(SURGUT_ID);
+        System.out.println(iw);
     }
 }
