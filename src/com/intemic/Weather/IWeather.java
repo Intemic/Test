@@ -1,6 +1,7 @@
 package com.intemic.Weather;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Created by Anton on 18.01.2017.
