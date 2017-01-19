@@ -1,7 +1,6 @@
 package com.intemic.Weather;
 
 import java.util.Date;
-import java.util.LinkedHashMap;
 
 /**
  * Created by Anton on 18.01.2017.
@@ -25,5 +24,10 @@ public interface IWeather {
     // наименование нас. пункта
     String getNameSity();
 
-   Date getDateUpdate();
+    // время обновления
+    Date getDateUpdate();
+
+    // иконка погоды
+    byte[] getWeatherIcon();
+
 }

@@ -2,13 +2,7 @@ package com.intemic.Weather;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.mindview.util.CountingMapData;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Date;
 
 /**
@@ -18,9 +12,10 @@ public class OpenWeather extends WeatherAbstract {
     private final String WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather";
     private final String APPID = "495f7755c71feb8503704b3d82f9b0c8";
     private static final int SURGUT_ID = 1490624;
+    private static final String ICON_URL = "http://openweathermap.org/img/w/";
 
     private String getURL(int id) {
-        return WEATHER_URL + "?id=" + id + "&APPID=" + APPID + "&units=metric";
+        return WEATHER_URL + "?id=" + id + "&APPID=" + APPID + "&units=metric" + "&lang=ru";
     }
 
     protected void getData(String query) {
@@ -29,6 +24,8 @@ public class OpenWeather extends WeatherAbstract {
             JsonNode rootNode = mapper.readValue(query, JsonNode.class); // парсинг текста
             JsonNode mainNode = rootNode.get("main");
             JsonNode windNode = rootNode.get("wind");
+            JsonNode weatherdNode = rootNode.get("weather");
+
             // температура
             temperature = mainNode.get("temp").asText() + "°C";
             // влажность %
@@ -42,6 +39,12 @@ public class OpenWeather extends WeatherAbstract {
             windDirect = convertWindDirect(windNode.get("deg").asInt());
             // название нас. пункта
             nameSity = rootNode.get("name").asText();
+            // иконка
+            try{
+                weatherIcon = connect(ICON_URL + weatherdNode.elements().next().get("icon").asText() + ".png").getBytes();
+            } catch( RuntimeException e){
+                weatherIcon = null;
+            }
 
             // выставим время обновления
             dateUpdate = new Date();
@@ -54,7 +57,8 @@ public class OpenWeather extends WeatherAbstract {
         getData(connect(getURL(SURGUT_ID)));
     }
 
-    OpenWeather(String data) {
+    // для тестирования
+    private OpenWeather(String data) {
         getData(data);
     }
 

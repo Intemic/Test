@@ -1,7 +1,5 @@
 package com.intemic.Weather;
 
-import net.mindview.util.CountingGenerator;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,6 +16,7 @@ import java.util.Map;
 public abstract class WeatherAbstract implements IWeather {
     protected String temperature, atmPressure, windSpeed, windDirect, humidity, nameSity;
     protected Date dateUpdate;
+    protected byte[] weatherIcon;
     protected static LinkedHashMap<Integer, String> wnd = new LinkedHashMap<>();
 
     // роза ветров
@@ -66,6 +65,10 @@ public abstract class WeatherAbstract implements IWeather {
         return dateUpdate;
     }
 
+    public byte[] getWeatherIcon() {
+      return weatherIcon;
+    }
+
     public String toString() {
         return "Город - " + nameSity + ", Время обновления : " +
                 (new SimpleDateFormat("dd.MM.yyyy HH:mm")).format(dateUpdate) + "\n\n" +
@@ -73,7 +76,8 @@ public abstract class WeatherAbstract implements IWeather {
                 "Влажность : " + humidity + " % " + "\n" +
                 "Атмосферное давление : " + atmPressure + "\n" +
                 "Сила ветра : " + windSpeed + "\n" +
-                "Направление ветра : " + windDirect + "\n";
+                "Направление ветра : " + windDirect + "\n" +
+                "Иконка : " + weatherIcon;
     }
 
     protected String convertWindDirect(int direct) {
