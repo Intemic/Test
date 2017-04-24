@@ -29,7 +29,8 @@ public class WunderGroundWheather extends WeatherAbstract {
         return WEATHER_URL.replace("APPID", APPID).replace("FEATURE", FEATURE).replace("QUERY", query);
     }
 
-    protected void parseData(String query){
+    // выбираем основные данные
+    protected void parseData(String query) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readValue(query, JsonNode.class); // парсинг текста
@@ -48,7 +49,7 @@ public class WunderGroundWheather extends WeatherAbstract {
             atmPressure = mainNode.get("pressure_mb").asInt();
             // сила ветра, переводим из миль/час в м/с
             double windMC = mainNode.get("wind_gust_mph").asInt() * 0.44704;
-            windSpeed = (int)Math.round(windMC);
+            windSpeed = (int) Math.round(windMC);
             // направление ветра
             windDirect = convertWindDirect(mainNode.get("wind_degrees").asInt());
             // восход, нужно перевести в милисекунды
@@ -56,14 +57,14 @@ public class WunderGroundWheather extends WeatherAbstract {
 
 
             // название нас. пункта
-            JsonNode locationNode =  mainNode.get("display_location");
+            JsonNode locationNode = mainNode.get("display_location");
             nameSity = locationNode.get("city").asText();
 
             // иконка
-            JsonNode image =  mainNode.get("image");
-            try{
+            JsonNode image = mainNode.get("image");
+            try {
                 weatherIcon = connect(image.get("url").asText()).getBytes();
-            } catch( RuntimeException e){
+            } catch (RuntimeException e) {
                 weatherIcon = null;
             }
 
@@ -71,6 +72,15 @@ public class WunderGroundWheather extends WeatherAbstract {
         } catch (IOException e) {
             System.out.print("Exception - " + e.getMessage());
         }
+    }
+
+    // астрономические данные
+    private void ParseDataAstro() throws IOException {
+        try {
+        } catch (IOException e) {
+            System.out.print("Exception - " + e.getMessage());
+        }
+
     }
 
     WunderGroundWheather(int id) {
