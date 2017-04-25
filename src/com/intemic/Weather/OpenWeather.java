@@ -16,11 +16,11 @@ public class OpenWeather extends WeatherAbstract {
     private static final int SURGUT_ID = 1490624;
     private static final String ICON_URL = "http://openweathermap.org/img/w/";
 
-    private String getURLById(int id) {
+    public final String getURLById(int id) {
         return WEATHER_URL + "?id=" + id + "&APPID=" + APPID + "&units=metric" + "&lang=ru";
     }
 
-    private String getURLByCoordinate(double latitude, double longitude) {
+    public final String getURLByCoordinate(double latitude, double longitude) {
         return WEATHER_URL + "?lat=" + latitude + "&lon=" + longitude + "&APPID=" + APPID + "&units=metric" + "&lang=ru";
     }
 
@@ -64,21 +64,15 @@ public class OpenWeather extends WeatherAbstract {
     }
 
     OpenWeather(int id) {
-        parseData(connect(getURLById(SURGUT_ID)));
+        super(id);
     }
 
     OpenWeather(double latitude, double longitude) {
         // latitude - широта, longitude - долгота
-        parseData(connect(getURLByCoordinate(latitude, longitude)));
-    }
-
-    // для тестирования
-    private OpenWeather(String data) {
-        parseData(data);
+       super(latitude, longitude);
     }
 
     public static void main(String[] arg) {
-        //String test = "{\"coord\":{\"lon\":73.42,\"lat\":61.25},\"weather\":[{\"id\":600,\"main\":\"Snow\",\"description\":\"light snow\",\"icon\":\"13d\"}],\"base\":\"stations\",\"main\":{\"temp\":-12,\"pressure\":1028,\"humidity\":100,\"temp_min\":-12,\"temp_max\":-12},\"visibility\":2800,\"wind\":{\"speed\":3,\"deg\":280},\"clouds\":{\"all\":40},\"dt\":1484719200,\"sys\":{\"type\":1,\"id\":7313,\"message\":0.0054,\"country\":\"RU\",\"sunrise\":1484711891,\"sunset\":1484735765},\"id\":1490624,\"name\":\"Surgut\",\"cod\":200}";
         IWeather iw = new OpenWeather(SURGUT_ID);
 //        IWeather iw = new OpenWeather(61.15, 73.26);
         System.out.println(iw);

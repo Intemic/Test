@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -14,20 +17,32 @@ public class WunderGroundWheather extends WeatherAbstract {
     //    private final String WEATHER_URL = "http://api.wunderground.com/api/76018f06d58ffb68/forecast/lang:RU/q/61.25,73.42.json";
     private final String WEATHER_URL = "http://api.wunderground.com/api/APPID/FEATURE/lang:RU/q/QUERY.json";
     private final String APPID = "76018f06d58ffb68";
-    private final String FEATURE = "conditions";
+    private final String CONDITON = "conditions";
+    private final String ASTRONOMY = "astronomy";
     private final String QUERY = "61.25,73.42";
     private static final int SURGUT_ID = 1490624;
     //private static final String ICON_URL = "http://openweathermap.org/img/w/";
 
-    private String getURLById(int id) {
-        return WEATHER_URL.replace("APPID", APPID).replace("FEATURE", FEATURE).replace("QUERY", QUERY);
+    public final String getURLById(int id) {
+        return WEATHER_URL.replace("APPID", APPID).replace("FEATURE", CONDITON).replace("QUERY", QUERY);
     }
 
-    private String getURLByCoordinate(double latitude, double longitude) {
+    public final String getURLAstroById(int id) {
+        return WEATHER_URL.replace("APPID", APPID).replace("FEATURE", ASTRONOMY).replace("QUERY", QUERY);
+    }
+
+    public final String getURLByCoordinate(double latitude, double longitude) {
         String query;
         query = new Double(latitude).toString() + "," + new Double(longitude).toString();
-        return WEATHER_URL.replace("APPID", APPID).replace("FEATURE", FEATURE).replace("QUERY", query);
+        return WEATHER_URL.replace("APPID", APPID).replace("FEATURE", CONDITON).replace("QUERY", query);
     }
+
+    public final String getURLAstroByCoordinate(double latitude, double longitude) {
+        String query;
+        query = new Double(latitude).toString() + "," + new Double(longitude).toString();
+        return WEATHER_URL.replace("APPID", APPID).replace("FEATURE", ASTRONOMY).replace("QUERY", query);
+    }
+
 
     // выбираем основные данные
     protected void parseData(String query) {
@@ -35,11 +50,6 @@ public class WunderGroundWheather extends WeatherAbstract {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readValue(query, JsonNode.class); // парсинг текста
             JsonNode mainNode = rootNode.get("current_observation");
-
-            //JsonNode image = rootNode.get("image");
-            //            JsonNode windNode = rootNode.get("wind");
-//            JsonNode weatherdNode = rootNode.get("weather");
-//            JsonNode sysNode = rootNode.get("sys");
 
             // температура
             temperature = mainNode.get("temp_c").asDouble();
@@ -52,9 +62,6 @@ public class WunderGroundWheather extends WeatherAbstract {
             windSpeed = (int) Math.round(windMC);
             // направление ветра
             windDirect = convertWindDirect(mainNode.get("wind_degrees").asInt());
-            // восход, нужно перевести в милисекунды
-            sunrise = new Date(sysNode.get("sunrise").asLong() * 1000L);
-
 
             // название нас. пункта
             JsonNode locationNode = mainNode.get("display_location");
@@ -75,21 +82,47 @@ public class WunderGroundWheather extends WeatherAbstract {
     }
 
     // астрономические данные
-    private void ParseDataAstro() throws IOException {
+    private void ParseDataAstro(String query) {
         try {
-        } catch (IOException e) {
-            System.out.print("Exception - " + e.getMessage());
-        }
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rootNode = mapper.readValue(query, JsonNode.class); // парсинг текста
+            JsonNode mainNode = rootNode.get("sun_phase");
+            JsonNode sunrise = mainNode.get("sunrise");
+            JsonNode sunset = mainNode.get("sunset");
+            SimpleDateFormat format = new SimpleDateFormat();
+            String hour, minute;
 
+            format.applyPattern("hh:mm");
+
+            // восход солнца
+            hour = sunrise.get("hour").asText();
+            minute = sunrise.get("minute").asText();
+            super.sunrise = format.parse(hour + ":" + minute);
+
+            // закат солнца
+            hour = sunset.get("hour").asText();
+            minute = sunset.get("minute").asText();
+            super.sunset = format.parse(hour + ":" + minute);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     WunderGroundWheather(int id) {
-        parseData(connect(getURLById(id)));
+        super(id);
+        //String URL;
+        // дополнительные данные
+        ParseDataAstro(connect(getURLAstroById(id)));
     }
 
     WunderGroundWheather(double latitude, double longitude) {
         // latitude - широта, longitude - долгота
-        parseData(connect(getURLByCoordinate(latitude, longitude)));
+        super(latitude, longitude);
+        // дополнительные данные
+        ParseDataAstro(connect(getURLAstroByCoordinate(latitude, longitude)));
     }
 
     public static void main(String[] arg) {

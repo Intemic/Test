@@ -39,13 +39,9 @@ public abstract class WeatherAbstract implements IWeather {
         wnd.put(0, "C");
     }
 
-    private String getURLById(int id) {
-        throw new RuntimeException("Не реализованно");
-    }
+    abstract protected String getURLById(int id);
 
-    private String getURLByCoordinate(double latitude, double longitude) {
-        throw new RuntimeException("Не реализованно");
-    }
+    abstract protected String getURLByCoordinate(double latitude, double longitude);
 
     @Override
     public String getTemperature(TEMP_ENUM format) {
@@ -202,4 +198,22 @@ public abstract class WeatherAbstract implements IWeather {
 
         return query;
     }
+
+    public WeatherAbstract(int id){
+        try {
+            parseData(connect(getURLById(id)));
+        } catch (IOException e){
+           throw new RuntimeException(e);
+        }
+    }
+
+    public WeatherAbstract(double latitude, double longitude) {
+        // latitude - широта, longitude - долгота
+        try {
+            parseData(connect(getURLByCoordinate(latitude, longitude)));
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
 }
