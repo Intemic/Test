@@ -141,14 +141,14 @@ public abstract class WeatherAbstract implements IWeather {
 
     public String toString() {
         return "Город - " + nameSity + ", Время обновления : " + getDateUpdate() + "\n\n" +
-                "Текущая температура : " + getTemperature(TMP_C) + "\n" +
-                "Влажность : " + humidity + " % " + "\n" +
-                "Атмосферное давление : " + getAtmPressure(PRES_MM) + "\n" +
-                "Сила ветра : " + getWindSpeed(WIND_MC) + "\n" +
-                "Направление ветра : " + windDirect + "\n" +
-                "Восход : " + getSunrise() + "\n" +
-                "Закат : " + getSunset() + "\n" +
-                "Иконка : " + weatherIcon;
+               "Текущая температура : " + getTemperature(TMP_C) + "\n" +
+               "Влажность : " + humidity + " % " + "\n" +
+               "Атмосферное давление : " + getAtmPressure(PRES_MM) + "\n" +
+               "Сила ветра : " + getWindSpeed(WIND_MC) + "\n" +
+               "Направление ветра : " + windDirect + "\n" +
+               "Восход : " + getSunrise() + "\n" +
+               "Закат : " + getSunset() + "\n" +
+               "Иконка : " + getWeatherIcon();
     }
 
     private double converDegreesToFahrenheit(double value) {
@@ -195,7 +195,6 @@ public abstract class WeatherAbstract implements IWeather {
         } catch (IOException e) {
             throw new RuntimeException("Не удалось установить соединение");
         }
-
         return query;
     }
 

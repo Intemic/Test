@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Anton on 20.01.2017.
@@ -50,6 +52,8 @@ public class WunderGroundWheather extends WeatherAbstract {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readValue(query, JsonNode.class); // парсинг текста
             JsonNode mainNode = rootNode.get("current_observation");
+            SimpleDateFormat format = new SimpleDateFormat();
+            format.applyPattern("hh:mm:ss");
 
             // температура
             temperature = mainNode.get("temp_c").asDouble();
@@ -58,7 +62,7 @@ public class WunderGroundWheather extends WeatherAbstract {
             // атмосферное давление
             atmPressure = mainNode.get("pressure_mb").asInt();
             // сила ветра, переводим из миль/час в м/с
-            double windMC = mainNode.get("wind_gust_mph").asInt() * 0.44704;
+            double windMC = mainNode.get("wind_mph").asInt() * 0.44704;
             windSpeed = (int) Math.round(windMC);
             // направление ветра
             windDirect = convertWindDirect(mainNode.get("wind_degrees").asInt());
@@ -66,6 +70,11 @@ public class WunderGroundWheather extends WeatherAbstract {
             // название нас. пункта
             JsonNode locationNode = mainNode.get("display_location");
             nameSity = locationNode.get("city").asText();
+            // дата обновления
+            //Matcher m = Pattern.compile("\\d{2}:\\d{2}:\\d{2}").matcher(mainNode.get("local_time_rfc822").asText());
+            //if (m.find())
+            //    dateUpdate = format.parse(m.group());
+            dateUpdate = new Date();
 
             // иконка
             JsonNode image = mainNode.get("image");
@@ -78,6 +87,8 @@ public class WunderGroundWheather extends WeatherAbstract {
 
         } catch (IOException e) {
             System.out.print("Exception - " + e.getMessage());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
         }
     }
 
