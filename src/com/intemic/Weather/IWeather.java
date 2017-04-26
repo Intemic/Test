@@ -1,7 +1,5 @@
 package com.intemic.Weather;
 
-import java.util.Date;
-
 // Формат вывода температуры
 enum TEMP_ENUM {TMP_C, TMP_F};
 
@@ -44,5 +42,14 @@ public interface IWeather {
 
     // иконка погоды
     byte[] getWeatherIcon();
+
+    // получение данных по Id
+    void getData(int id);
+
+    // получение данных по наименованию города
+    void getData(String name);
+
+    // получение данных по координатам города
+    void getData(double latitude, double longitude);
 
 }

@@ -16,17 +16,40 @@ import java.util.regex.Pattern;
  * Created by Anton on 20.01.2017.
  */
 public class WunderGroundWheather extends WeatherAbstract {
+    private static final int SURGUT_ID = 1490624;
     //    private final String WEATHER_URL = "http://api.wunderground.com/api/76018f06d58ffb68/forecast/lang:RU/q/61.25,73.42.json";
     private final String WEATHER_URL = "http://api.wunderground.com/api/APPID/FEATURE/lang:RU/q/QUERY.json";
     private final String APPID = "76018f06d58ffb68";
     private final String CONDITON = "conditions";
     private final String ASTRONOMY = "astronomy";
     private final String QUERY = "61.25,73.42";
-    private static final int SURGUT_ID = 1490624;
     //private static final String ICON_URL = "http://openweathermap.org/img/w/";
+
+    WunderGroundWheather(int id) {
+      //  super(id);
+        //String URL;
+        // дополнительные данные
+       // ParseDataAstro(connect(getURLAstroById(id)));
+    }
+
+    WunderGroundWheather(double latitude, double longitude) {
+        // latitude - широта, longitude - долгота
+        //super(latitude, longitude);
+        // дополнительные данные
+       // ParseDataAstro(connect(getURLAstroByCoordinate(latitude, longitude)));
+    }
+
+    public static void main(String[] arg) {
+        IWeather iw = new WunderGroundWheather(61.25, 73.42);
+        System.out.println(iw);
+    }
 
     public final String getURLById(int id) {
         return WEATHER_URL.replace("APPID", APPID).replace("FEATURE", CONDITON).replace("QUERY", QUERY);
+    }
+
+    public final int getIdByName(String name) {
+      return -1;
     }
 
     public final String getURLAstroById(int id) {
@@ -44,7 +67,6 @@ public class WunderGroundWheather extends WeatherAbstract {
         query = new Double(latitude).toString() + "," + new Double(longitude).toString();
         return WEATHER_URL.replace("APPID", APPID).replace("FEATURE", ASTRONOMY).replace("QUERY", query);
     }
-
 
     // выбираем основные данные
     protected void parseData(String query) {
@@ -120,24 +142,5 @@ public class WunderGroundWheather extends WeatherAbstract {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-    }
-
-    WunderGroundWheather(int id) {
-        super(id);
-        //String URL;
-        // дополнительные данные
-        ParseDataAstro(connect(getURLAstroById(id)));
-    }
-
-    WunderGroundWheather(double latitude, double longitude) {
-        // latitude - широта, longitude - долгота
-        super(latitude, longitude);
-        // дополнительные данные
-        ParseDataAstro(connect(getURLAstroByCoordinate(latitude, longitude)));
-    }
-
-    public static void main(String[] arg) {
-        IWeather iw = new WunderGroundWheather(61.25, 73.42);
-        System.out.println(iw);
     }
 }

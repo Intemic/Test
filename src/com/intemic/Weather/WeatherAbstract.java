@@ -1,6 +1,7 @@
 package com.intemic.Weather;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -18,12 +19,6 @@ import static com.intemic.Weather.WIND_ENUM.*;
  * Created by Anton on 19.01.2017.
  */
 public abstract class WeatherAbstract implements IWeather {
-    protected double temperature;
-    protected int atmPressure, windSpeed;
-    protected String windDirect, humidity, nameSity;
-    //      sunrise, sunset;
-    protected Date sunrise, sunset, dateUpdate;
-    protected byte[] weatherIcon;
     protected static LinkedHashMap<Integer, String> wnd = new LinkedHashMap<>();
 
     // роза ветров
@@ -39,9 +34,50 @@ public abstract class WeatherAbstract implements IWeather {
         wnd.put(0, "C");
     }
 
+    protected double temperature;
+    protected int atmPressure, windSpeed;
+    protected String windDirect, humidity, nameSity;
+    //      sunrise, sunset;
+    protected Date sunrise, sunset, dateUpdate;
+    protected byte[] weatherIcon;
+
+    abstract protected int getIdByName(String name);
+
     abstract protected String getURLById(int id);
 
     abstract protected String getURLByCoordinate(double latitude, double longitude);
+
+    public void getData(int id) {
+        try {
+            parseData(connect(getURLById(id)));
+        } catch (IOException e) {
+            throw new RuntimeException("Не удалось обновить данные");
+        }
+    }
+
+    public void getData(String name) {
+        getData(getIdByName(name));
+    }
+
+    public void getData(double latitude, double longitude) {
+        // latitude - широта, longitude - долгота
+        try {
+            parseData(connect(getURLByCoordinate(latitude, longitude)));
+        } catch (IOException e) {
+            throw new RuntimeException("Не удалось обновить данные");
+        }
+    }
+
+    protected String readFile(String fileName) throws IOException {
+        String s = null;
+
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
+        StringBuilder sb = new StringBuilder();
+        while ((s = br.readLine()) != null)
+          sb.append(s + "\\n");
+
+        return sb.toString();
+    }
 
     @Override
     public String getTemperature(TEMP_ENUM format) {
@@ -141,14 +177,14 @@ public abstract class WeatherAbstract implements IWeather {
 
     public String toString() {
         return "Город - " + nameSity + ", Время обновления : " + getDateUpdate() + "\n\n" +
-               "Текущая температура : " + getTemperature(TMP_C) + "\n" +
-               "Влажность : " + humidity + " % " + "\n" +
-               "Атмосферное давление : " + getAtmPressure(PRES_MM) + "\n" +
-               "Сила ветра : " + getWindSpeed(WIND_MC) + "\n" +
-               "Направление ветра : " + windDirect + "\n" +
-               "Восход : " + getSunrise() + "\n" +
-               "Закат : " + getSunset() + "\n" +
-               "Иконка : " + getWeatherIcon();
+                "Текущая температура : " + getTemperature(TMP_C) + "\n" +
+                "Влажность : " + humidity + " % " + "\n" +
+                "Атмосферное давление : " + getAtmPressure(PRES_MM) + "\n" +
+                "Сила ветра : " + getWindSpeed(WIND_MC) + "\n" +
+                "Направление ветра : " + windDirect + "\n" +
+                "Восход : " + getSunrise() + "\n" +
+                "Закат : " + getSunset() + "\n" +
+                "Иконка : " + getWeatherIcon();
     }
 
     private double converDegreesToFahrenheit(double value) {
@@ -176,43 +212,28 @@ public abstract class WeatherAbstract implements IWeather {
         return new Long(Math.round(pressure * 100 / 133.322)).intValue();
     }
 
-    abstract  void parseData(String query) throws IOException;
+    abstract void parseData(String query) throws IOException;
 
-    protected String connect(String urlSource) {
+    protected String connect(String urlSource) throws IOException {
         String query = null, line = null;
         StringBuilder sb = new StringBuilder();
 
-        try {
-            URL url = new URL(urlSource);
-            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-            // соберем все в кучу
-            while (( line = br.readLine()) != null)
-              sb.append(line + "\n");
-            query = sb.toString();
-            // а это уже печалька
-            if (query == "")
-              throw new IOException("Не удалось получить ответ");
+//        try {
+        URL url = new URL(urlSource);
+        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+        // соберем все в кучу
+        while ((line = br.readLine()) != null)
+            sb.append(line + "\n");
+        query = sb.toString();
+        // а это уже печалька
+        if (query == "")
+            throw new IOException("Нет данных");
+/*
         } catch (IOException e) {
             throw new RuntimeException("Не удалось установить соединение");
         }
+*/
         return query;
-    }
 
-    public WeatherAbstract(int id){
-        try {
-            parseData(connect(getURLById(id)));
-        } catch (IOException e){
-           throw new RuntimeException(e);
-        }
     }
-
-    public WeatherAbstract(double latitude, double longitude) {
-        // latitude - широта, longitude - долгота
-        try {
-            parseData(connect(getURLByCoordinate(latitude, longitude)));
-        } catch (IOException e){
-            throw new RuntimeException(e);
-        }
-    }
-
 }
