@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Created by Anton on 18.01.2017.
@@ -23,9 +24,7 @@ public class OpenWeather extends WeatherAbstract {
 
     public static void main(String[] arg) {
         IWeather iw = new OpenWeather();
-        iw.getData("Surgut");
-        // IWeather iw = new OpenWeather("Surgut");
-
+//        iw.getData("Surgut");
 //        IWeather iw = new OpenWeather(61.15, 73.26);
         System.out.println(iw);
     }
@@ -33,13 +32,12 @@ public class OpenWeather extends WeatherAbstract {
     public final int getIdByName(String name) {
         // скачиваем перечень значений
         int result = -1;
-        String data;
+        String shablon = "\\d*\\s" + name; //".*" + name + ".*";
         Matcher m;
-        Pattern pt = Pattern.compile("\\n(\\d)*\\s" + name);
+        Pattern pt = Pattern.compile(shablon);
 
         try {
-            data = readFile(FILE_CITY);
-            m = pt.matcher(data);
+            m = pt.matcher(readFile(FILE_CITY));
             // нашли строку
             if (m.find()) {
                 pt = Pattern.compile("\\s");
@@ -47,8 +45,14 @@ public class OpenWeather extends WeatherAbstract {
                 result = new Integer(split[0]);
             }
 
+        } catch (PatternSyntaxException pe) {
+            throw new RuntimeException("Не корректный паттерн ");
         } catch (IOException e) {
             throw new RuntimeException("Не удалось найти соответствие города - id ");
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        } finally {
+            System.out.println("Ид города - " + result);
         }
 
         return result;

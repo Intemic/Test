@@ -51,7 +51,7 @@ public abstract class WeatherAbstract implements IWeather {
         try {
             parseData(connect(getURLById(id)));
         } catch (IOException e) {
-            throw new RuntimeException("Не удалось обновить данные");
+            throw new RuntimeException("Не удалось обновить данные - " + e.getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ public abstract class WeatherAbstract implements IWeather {
         try {
             parseData(connect(getURLByCoordinate(latitude, longitude)));
         } catch (IOException e) {
-            throw new RuntimeException("Не удалось обновить данные");
+            throw new RuntimeException("Не удалось обновить данные - " + e.getMessage());
         }
     }
 
@@ -74,7 +74,7 @@ public abstract class WeatherAbstract implements IWeather {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         StringBuilder sb = new StringBuilder();
         while ((s = br.readLine()) != null)
-          sb.append(s + "\\n");
+            sb.append(s + "\n");
 
         return sb.toString();
     }
@@ -120,12 +120,12 @@ public abstract class WeatherAbstract implements IWeather {
 
     @Override
     public String getWindDirect() {
-        return windDirect;
+        return windDirect != null ? windDirect : "";
     }
 
     @Override
     public String getHumidity() {
-        return humidity;
+        return humidity != null ? humidity + " % " : "";
     }
 
     @Override
@@ -178,10 +178,10 @@ public abstract class WeatherAbstract implements IWeather {
     public String toString() {
         return "Город - " + nameSity + ", Время обновления : " + getDateUpdate() + "\n\n" +
                 "Текущая температура : " + getTemperature(TMP_C) + "\n" +
-                "Влажность : " + humidity + " % " + "\n" +
+                "Влажность : " + getHumidity() + "\n" +
                 "Атмосферное давление : " + getAtmPressure(PRES_MM) + "\n" +
                 "Сила ветра : " + getWindSpeed(WIND_MC) + "\n" +
-                "Направление ветра : " + windDirect + "\n" +
+                "Направление ветра : " + getWindDirect() + "\n" +
                 "Восход : " + getSunrise() + "\n" +
                 "Закат : " + getSunset() + "\n" +
                 "Иконка : " + getWeatherIcon();
