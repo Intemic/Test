@@ -1,4 +1,4 @@
-//: concurrency/TestBlockingQueues.java
+package concurrency;//: concurrency/TestBlockingQueues.java
 // {RunByHand}
 import java.util.concurrent.*;
 import java.io.*;

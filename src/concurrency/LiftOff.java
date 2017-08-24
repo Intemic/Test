@@ -1,4 +1,4 @@
-//: concurrency/LiftOff.java
+package concurrency;//: concurrency/LiftOff.java
 // Demonstration of the Runnable interface.
 
 public class LiftOff implements Runnable {

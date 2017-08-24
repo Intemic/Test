@@ -1,4 +1,4 @@
-//: concurrency/CachedThreadPool.java
+package concurrency;//: concurrency/CachedThreadPool.java
 import java.util.concurrent.*;
 
 public class CachedThreadPool {

@@ -1,4 +1,4 @@
-//: concurrency/FixedThreadPool.java
+package concurrency;//: concurrency/FixedThreadPool.java
 import java.util.concurrent.*;
 
 public class FixedThreadPool {
