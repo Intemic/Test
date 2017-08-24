@@ -33,6 +33,10 @@
       <sourceFolder url="file://$MODULE_DIR$/src/enumerated/menu" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/annotations" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/net/mindview/atunit" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/concurrency" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/concurrency/restaurant2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/concurrency/waxomatic" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/concurrency/waxomatic2" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
