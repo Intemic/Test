@@ -1,5 +1,9 @@
 package example;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * Created by Anton on 29.08.2017.
  */
@@ -21,7 +25,10 @@ public class ERunnable implements Runnable {
     }
 
    public static void main(String[] arg){
-       for (int i = 0; i < 5; i++)
-         new Thread(new ERunnable()).start();
+       ExecutorService es = Executors.newCachedThreadPool();
+        for (int i = 0; i < 5; i++)
+          es.execute(new ERunnable());
+       es.shutdown();
+            //new Thread(new ERunnable()).start();
    }
 }

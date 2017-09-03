@@ -1,4 +1,4 @@
-//: concurrency/CallableDemo.java
+package concurrency;//: concurrency/CallableDemo.java
 import java.util.concurrent.*;
 import java.util.*;
 
@@ -7,6 +7,7 @@ class TaskWithResult implements Callable<String> {
   public TaskWithResult(int id) {
     this.id = id;
   }
+  @Override
   public String call() {
     return "result of TaskWithResult " + id;
   }
