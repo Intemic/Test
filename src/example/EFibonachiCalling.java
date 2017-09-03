@@ -58,21 +58,41 @@ public class EFibonachiCalling {
         return ex.submit(cs);
     }
 
-    public static void main(String[] arg) throws ExecutionException {
+    private static void runMethod() throws ExecutionException{
+        System.out.println("Result of run method : ");
         Random rd = new Random(47);
-//        ExecutorService ex = Executors.newCachedThreadPool();
         ArrayList<Future<String>> al = new ArrayList<Future<String>>();
         for (int i = 0; i < 5; i++)
-//            al.add(ex.submit(new EFibonaiCallable(rd.nextInt(25))));
             al.add(runTask(rd.nextInt(25)));
         for (Future<String> fs : al) {
             try {
                 System.out.println(fs.get());
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            } finally {
-//                ex.shutdown();
             }
         }
+    }
+
+    private static void runObject() throws ExecutionException{
+        System.out.println("Result of run object : ");
+        Random rd = new Random(47);
+        ExecutorService ex = Executors.newCachedThreadPool();
+        ArrayList<Future<String>> al = new ArrayList<Future<String>>();
+        for (int i = 0; i < 5; i++)
+            al.add(ex.submit(new EFibonaiCallable(rd.nextInt(25))));
+        for (Future<String> fs : al) {
+            try {
+                System.out.println(fs.get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                ex.shutdown();
+            }
+        }
+    }
+
+    public static void main(String[] arg) throws ExecutionException {
+      runMethod();
+      runObject();
     }
 }
