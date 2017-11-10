@@ -24,12 +24,13 @@ public class OpenWeather extends WeatherAbstract {
 
     public static void main(String[] arg) {
         IWeather iw = new OpenWeather();
-//        iw.getData("Surgut");
+        iw.getData("Surgut");
 //        IWeather iw = new OpenWeather(61.15, 73.26);
+//        iw.getData(61.25, 73.416672);
         System.out.println(iw);
     }
 
-    public final int getIdByName(String name) {
+    public final int getIdByName(String name){
         // скачиваем перечень значений
         int result = -1;
         String shablon = "\\d*\\s" + name; //".*" + name + ".*";
@@ -48,7 +49,13 @@ public class OpenWeather extends WeatherAbstract {
         } catch (PatternSyntaxException pe) {
             throw new RuntimeException("Не корректный паттерн ");
         } catch (IOException e) {
-            throw new RuntimeException("Не удалось найти соответствие города - id ");
+            // пытаемся вытянуть файл если его еще нет
+            try{
+              saveFile(FILE_CITY, connect(CITY_URL));
+              result = getIdByName(name);
+            }catch ( IOException ie){
+                throw new RuntimeException("Не удалось найти соответствие города - id ");
+            }
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         } finally {

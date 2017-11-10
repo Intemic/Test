@@ -1,9 +1,6 @@
 package com.intemic.Weather;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -48,6 +45,9 @@ public abstract class WeatherAbstract implements IWeather {
     abstract protected String getURLByCoordinate(double latitude, double longitude);
 
     public void getData(int id) {
+        System.out.println(id);
+
+
         try {
             parseData(connect(getURLById(id)));
         } catch (IOException e) {
@@ -77,6 +77,11 @@ public abstract class WeatherAbstract implements IWeather {
             sb.append(s + "\n");
 
         return sb.toString();
+    }
+
+    protected void saveFile(String fileName, String data) throws IOException{
+        BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+        bw.write(data);
     }
 
     @Override
