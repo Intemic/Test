@@ -45,9 +45,6 @@ public abstract class WeatherAbstract implements IWeather {
     abstract protected String getURLByCoordinate(double latitude, double longitude);
 
     public void getData(int id) {
-        System.out.println(id);
-
-
         try {
             parseData(connect(getURLById(id)));
         } catch (IOException e) {
@@ -82,6 +79,8 @@ public abstract class WeatherAbstract implements IWeather {
     protected void saveFile(String fileName, String data) throws IOException{
         BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
         bw.write(data);
+        File fs = new File(fileName);
+
     }
 
     @Override
