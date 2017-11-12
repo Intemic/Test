@@ -29,6 +29,7 @@ public class TextFile extends ArrayList<String> {
     }
     return sb.toString();
   }
+
   // Write a single file in one method call:
   public static void write(String fileName, String text) {
     try {
