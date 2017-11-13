@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import static com.intemic.Weather.TEMP_ENUM.*;
 import static com.intemic.Weather.PRES_ENUM.*;
@@ -17,6 +20,12 @@ import static com.intemic.Weather.WIND_ENUM.*;
  */
 public abstract class WeatherAbstract implements IWeather {
     protected static LinkedHashMap<Integer, String> wnd = new LinkedHashMap<>();
+    protected double temperature;
+    protected int atmPressure, windSpeed;
+    protected String windDirect, humidity, nameSity;
+    //      sunrise, sunset;
+    protected Date sunrise, sunset, dateUpdate;
+    protected byte[] weatherIcon;
 
     // роза ветров
     static {
@@ -31,14 +40,7 @@ public abstract class WeatherAbstract implements IWeather {
         wnd.put(0, "C");
     }
 
-    protected double temperature;
-    protected int atmPressure, windSpeed;
-    protected String windDirect, humidity, nameSity;
-    //      sunrise, sunset;
-    protected Date sunrise, sunset, dateUpdate;
-    protected byte[] weatherIcon;
-
-    abstract protected int getIdByName(String name);
+    abstract int getIdByName(String name);
 
     abstract protected String getURLById(int id);
 
@@ -79,8 +81,6 @@ public abstract class WeatherAbstract implements IWeather {
     protected void saveFile(String fileName, String data) throws IOException{
         BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
         bw.write(data);
-        File fs = new File(fileName);
-
     }
 
     @Override
@@ -240,4 +240,5 @@ public abstract class WeatherAbstract implements IWeather {
         return query;
 
     }
+
 }

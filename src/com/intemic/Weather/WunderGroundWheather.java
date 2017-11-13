@@ -25,6 +25,7 @@ public class WunderGroundWheather extends WeatherAbstract {
     private final String QUERY = "61.25,73.42";
     //private static final String ICON_URL = "http://openweathermap.org/img/w/";
 
+/*
     WunderGroundWheather(int id) {
       //  super(id);
         //String URL;
@@ -38,10 +39,16 @@ public class WunderGroundWheather extends WeatherAbstract {
         // дополнительные данные
        // ParseDataAstro(connect(getURLAstroByCoordinate(latitude, longitude)));
     }
-
+*/
     public static void main(String[] arg) {
-        IWeather iw = new WunderGroundWheather(61.25, 73.42);
-        System.out.println(iw);
+        //IWeather iw = new WunderGroundWheather(61.25, 73.42);
+        IWeather iw = new WunderGroundWheather();
+        try {
+            iw.getData(61.25, 73.42);
+            System.out.println(iw);
+        }catch ( Exception io){
+            System.out.println("Не удалось обновить данные");
+        }
     }
 
     public final String getURLById(int id) {

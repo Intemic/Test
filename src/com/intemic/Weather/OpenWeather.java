@@ -17,22 +17,26 @@ import java.util.regex.PatternSyntaxException;
 public class OpenWeather extends WeatherAbstract {
     private static final int SURGUT_ID = 1490624;
     private static final String ICON_URL = "http://openweathermap.org/img/w/";
-    private static final String CITY_URL = "http://openweathermap.org/help/city_list.txt";
     private final String WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather";
+    private final String CITY_URL = "http://openweathermap.org/help/city_list.txt";
     private final String APPID = "495f7755c71feb8503704b3d82f9b0c8";
     private final String FILE_CITY = "OpenWeather_City.txt";
 
     public static void main(String[] arg) {
         IWeather iw = new OpenWeather();
-        iw.getData("Surgut");
-//        IWeather iw = new OpenWeather(61.15, 73.26);
+        try {
+            iw.getData("Surgut");
+            System.out.println(iw);
+        } catch ( Exception ie){
+            System.out.println("Не удалось обновить данные");
+        }
 //        iw.getData(61.25, 73.416672);
-        System.out.println(iw);
     }
 
-    public final int getIdByName(String name){
+    public final int getIdByName(String name) {
         // скачиваем перечень значений
         int result = -1;
+
         String shablon = "\\d*\\s" + name; //".*" + name + ".*";
         Matcher m;
         Pattern pt = Pattern.compile(shablon);
@@ -50,10 +54,10 @@ public class OpenWeather extends WeatherAbstract {
             throw new RuntimeException("Не корректный паттерн ");
         } catch (IOException e) {
             // пытаемся вытянуть файл если его еще нет
-            try{
-              saveFile(FILE_CITY, connect(CITY_URL));
-              result = getIdByName(name);
-            }catch ( IOException ie){
+            try {
+                saveFile(FILE_CITY, connect(CITY_URL));
+                result = getIdByName(name);
+            } catch (IOException ie) {
                 throw new RuntimeException("Не удалось найти соответствие города - id ");
             }
         } catch (Exception ex) {
@@ -61,6 +65,9 @@ public class OpenWeather extends WeatherAbstract {
         } finally {
             System.out.println("Ид города - " + result);
         }
+
+        if (result == -1)
+            throw new RuntimeException("Не удалось найти соответствие города - id ");
 
         return result;
     }
