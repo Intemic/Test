@@ -29,7 +29,8 @@ public class WunderGroundWheather extends WeatherAbstract {
     public static void main(String[] arg) {
         IWeather iw = new WunderGroundWheather();
         try {
-            iw.getData(61.25, 73.42);
+            //iw.getData(61.25, 73.42);
+            iw.getData("Surgut");
             System.out.println(iw);
         } catch (Exception io) {
             System.out.println("Не удалось обновить данные");
@@ -222,8 +223,14 @@ public class WunderGroundWheather extends WeatherAbstract {
 
     @Override
     protected void getActionByName(String name, Map<String, IAction> it) {
+        String query = null;
+
         it.clear();
-        throw new RuntimeException("Не реализованно");
+        query = "Russian/" + name;
+        // основные данные
+        it.put(WEATHER_URL.replace("APPID", APPID).replace("FEATURE", CONDITON).replace("QUERY", query), new Action());
+        // астрологические данные
+        it.put(WEATHER_URL.replace("APPID", APPID).replace("FEATURE", ASTRONOMY).replace("QUERY", query), new ActionAstro());
     }
 
     @Override
