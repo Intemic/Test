@@ -5,9 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -78,6 +76,8 @@ public abstract class WeatherAbstract implements IWeather {
 
 
     private void run(){
+        System.out.println("Источник : " + getClass().getSimpleName());
+
         // проверим наличие соединения
         try {
             testConnection();
@@ -335,4 +335,25 @@ public abstract class WeatherAbstract implements IWeather {
         }
     }
 
+
+    public static void main (String[] arg){
+        Set<WeatherAbstract> st = new LinkedHashSet<>();
+        st.add(new OpenWeather());
+        st.add(new WunderGroundWheather());
+
+        System.out.println("Вывод данных по имени : ---------------------------------------------");
+        for (WeatherAbstract wa : st){
+          wa.getData("Surgut");
+          System.out.println(wa);
+          System.out.println("");
+        }
+
+        System.out.println("Вывод данных по координатам : ---------------------------------------------");
+        for (WeatherAbstract wa : st){
+            wa.getData(61.25, 73.416672);
+            System.out.println(wa);
+            System.out.println("");
+        }
+
+    }
 }

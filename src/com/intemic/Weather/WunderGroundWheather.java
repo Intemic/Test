@@ -23,7 +23,7 @@ public class WunderGroundWheather extends WeatherAbstract {
     private final String APPID = "76018f06d58ffb68";
     private final String CONDITON = "conditions";
     private final String ASTRONOMY = "astronomy";
-    private final String QUERY = "61.25,73.42";
+//    private final String QUERY = "61.25,73.42";
     //private static final String ICON_URL = "http://openweathermap.org/img/w/";
 
     public static void main(String[] arg) {
@@ -114,6 +114,7 @@ public class WunderGroundWheather extends WeatherAbstract {
         }
     }
 
+/*
     public final String getURLById(int id) {
         return WEATHER_URL.replace("APPID", APPID).replace("FEATURE", CONDITON).replace("QUERY", QUERY);
     }
@@ -122,7 +123,6 @@ public class WunderGroundWheather extends WeatherAbstract {
         throw new RuntimeException("Не реализованно");
     }
 
-/*
     public final String getURLAstroById(int id) {
         return WEATHER_URL.replace("APPID", APPID).replace("FEATURE", ASTRONOMY).replace("QUERY", QUERY);
     }
