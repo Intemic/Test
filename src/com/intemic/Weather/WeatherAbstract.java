@@ -41,7 +41,7 @@ class ENotData extends Exception{
 };
 
 public abstract class WeatherAbstract implements IWeather {
-    private  final String TEST_URL = "http://www.google.ru/"; //"http://api.openweathermap.org"; //"http://www.google.ru/"; //http://www.ya.ru";
+    private String TEST_URL = "http://www.google.ru/"; //"http://api.openweathermap.org"; //"http://www.google.ru/"; //http://www.ya.ru";
     private Map<String, IAction> items = new LinkedHashMap<String, IAction>();
     protected static LinkedHashMap<Integer, String> wnd = new LinkedHashMap<>();
     protected double temperature;
@@ -78,6 +78,13 @@ public abstract class WeatherAbstract implements IWeather {
 
 
     private void run(){
+        // проверим наличие соединения
+        try {
+            testConnection();
+        } catch (ENotConnection ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+
         for (String url : items.keySet())
           if (items.get(url) != null)
               ((IAction)items.get(url)).process(url);
@@ -306,7 +313,7 @@ public abstract class WeatherAbstract implements IWeather {
 */
 
     // проверяем наличие соединения
-    protected void testConnection() throws ENotConnection {
+    private void testConnection() throws ENotConnection {
         HttpURLConnection urlConnection =null;
 
         try {
