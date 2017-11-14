@@ -42,7 +42,7 @@ class ENotData extends Exception{
 
 public abstract class WeatherAbstract implements IWeather {
     private  final String TEST_URL = "http://www.google.ru/"; //"http://api.openweathermap.org"; //"http://www.google.ru/"; //http://www.ya.ru";
-    protected final Map<String, IAction> items = new LinkedHashMap<String, IAction>();
+    private Map<String, IAction> items = new LinkedHashMap<String, IAction>();
     protected static LinkedHashMap<Integer, String> wnd = new LinkedHashMap<>();
     protected double temperature;
     protected int atmPressure, windSpeed;
@@ -64,17 +64,17 @@ public abstract class WeatherAbstract implements IWeather {
         wnd.put(0, "C");
     }
 
-    abstract int getIdByName(String name);
+    //abstract int getIdByName(String name);
 
-   // abstract protected Map<String, IAction> getActionByName(String name);
+    abstract protected void getActionByName(String name, Map<String, IAction> it);
 
    // abstract protected String getURLById(int id);
 
-    abstract protected Map<String, IAction> getActionById(int id);
+    abstract protected void getActionById(int id, Map<String, IAction> it);
 
 //    abstract protected String getURLByCoordinate(double latitude, double longitude);
 
-    abstract protected Map<String, IAction> getActionByCoordinate(double latitude, double longitude);
+    abstract protected void getActionByCoordinate(double latitude, double longitude, Map<String, IAction> it);
 
 
     protected void run(){
@@ -92,12 +92,14 @@ public abstract class WeatherAbstract implements IWeather {
             throw new RuntimeException("Не удалось обновить данные - " + e.getMessage());
         }
 */
-      getActionById(id);
+      getActionById(id, items);
       run();
     }
 
     public void getData(String name) {
-       getData(getIdByName(name));
+       //getData(getIdByName(name));
+        getActionByName(name, items);
+        run();
     }
 
     public void getData(double latitude, double longitude) {
@@ -111,7 +113,7 @@ public abstract class WeatherAbstract implements IWeather {
             throw new RuntimeException("Не удалось обновить данные - " + e.getMessage());
         }
 */
-      getActionByCoordinate(latitude, longitude);
+      getActionByCoordinate(latitude, longitude, items);
       run();
     }
 
@@ -264,8 +266,9 @@ public abstract class WeatherAbstract implements IWeather {
         return new Long(Math.round(pressure * 100 / 133.322)).intValue();
     }
 
-    abstract void parseData(String query) throws IOException;
+  //  abstract void parseData(String query) throws IOException;
 
+/*
     protected String connect(String urlSource) throws ENotData {
         String query = null, line = null;
         StringBuilder sb = new StringBuilder();
@@ -300,6 +303,7 @@ public abstract class WeatherAbstract implements IWeather {
 
         return query;
     }
+*/
 
     // проверяем наличие соединения
     protected void testConnection() throws ENotConnection {

@@ -7,6 +7,7 @@ import javax.jnlp.IntegrationService;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -27,12 +28,55 @@ public class OpenWeather extends WeatherAbstract {
         IWeather iw = new OpenWeather();
         try {
             iw.getData("Surgut");
+//        iw.getData(61.25, 73.416672);
             System.out.println(iw);
         } catch ( Exception ie){
             System.out.println(ie.getMessage());
         }
-//        iw.getData(61.25, 73.416672);
+  }
+
+    private class Action extends Processor{
+        @Override
+        protected void parseData(String data) {
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode rootNode = mapper.readValue(data, JsonNode.class); // парсинг текста
+                JsonNode mainNode = rootNode.get("main");
+                JsonNode windNode = rootNode.get("wind");
+                JsonNode weatherdNode = rootNode.get("weather");
+                JsonNode sysNode = rootNode.get("sys");
+
+                // температура
+                temperature = mainNode.get("temp").asDouble();
+                // влажность %
+                humidity = mainNode.get("humidity").asText();
+                // атмосферное давление
+                atmPressure = mainNode.get("pressure").asInt();
+                // сила ветра
+                windSpeed = windNode.get("speed").asInt(); //asText() + " м/с";
+                // направление ветра
+                windDirect = convertWindDirect(windNode.get("deg").asInt());
+                // название нас. пункта
+                nameSity = rootNode.get("name").asText();
+                // восход, нужно перевести в милисекунды
+                sunrise = new Date(sysNode.get("sunrise").asLong() * 1000L);
+                // закат
+                sunset = new Date(sysNode.get("sunset").asLong() * 1000L);
+                // иконка
+                try {
+                    weatherIcon = connect(ICON_URL + weatherdNode.elements().next().get("icon").asText() + ".png").getBytes();
+                } catch (Exception e) {
+                    weatherIcon = null;
+                }
+
+                // выставим время обновления
+                dateUpdate = new Date();
+            } catch (IOException e) {
+                System.out.print("Exception - " + e.getMessage());
+            }
+        }
     }
+
 
     public final int getIdByName(String name) {
         // скачиваем перечень значений
@@ -56,11 +100,12 @@ public class OpenWeather extends WeatherAbstract {
         } catch (IOException e) {
             // пытаемся вытянуть файл если его еще нет
             try {
-                saveFile(FILE_CITY, connect(CITY_URL));
+                saveFile(FILE_CITY, Processor.connect(CITY_URL));
                 result = getIdByName(name);
             } catch (Exception ie) {
                 throw new RuntimeException("Не удалось найти соответствие города - id ");
             }
+
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         } finally {
@@ -81,6 +126,7 @@ public class OpenWeather extends WeatherAbstract {
         return WEATHER_URL + "?lat=" + latitude + "&lon=" + longitude + "&APPID=" + APPID + "&units=metric" + "&lang=ru";
     }
 
+/*
     protected void parseData(String query) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -118,5 +164,23 @@ public class OpenWeather extends WeatherAbstract {
         } catch (IOException e) {
             System.out.print("Exception - " + e.getMessage());
         }
+    }
+
+*/
+    @Override
+    protected void getActionByName(String name, Map<String, IAction> it) {
+      getActionById(getIdByName(name), it);
+    }
+
+    @Override
+    protected void getActionById(int id, Map<String, IAction> it) {
+        it.clear();
+        it.put(WEATHER_URL + "?id=" + id + "&APPID=" + APPID + "&units=metric" + "&lang=ru", new Action());
+    }
+
+    @Override
+    protected void getActionByCoordinate(double latitude, double longitude, Map<String, IAction> it) {
+      it.clear();
+      it.put(WEATHER_URL + "?lat=" + latitude + "&lon=" + longitude + "&APPID=" + APPID + "&units=metric" + "&lang=ru", new Action());
     }
 }

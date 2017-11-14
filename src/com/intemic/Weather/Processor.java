@@ -12,7 +12,7 @@ interface IAction{
 abstract class Processor implements IAction{
     abstract protected void parseData(String data);
 
-    private String connect(String urlSource) throws ENotData {
+    public static String connect(String urlSource) throws ENotData {
         String query = null, line = null;
         StringBuilder sb = new StringBuilder();
         BufferedReader br = null;

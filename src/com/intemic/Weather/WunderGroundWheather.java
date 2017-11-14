@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -60,6 +61,7 @@ public class WunderGroundWheather extends WeatherAbstract {
         return WEATHER_URL.replace("APPID", APPID).replace("FEATURE", ASTRONOMY).replace("QUERY", query);
     }
 
+/*
     // выбираем основные данные
     protected void parseData(String query) {
         try {
@@ -106,6 +108,7 @@ public class WunderGroundWheather extends WeatherAbstract {
         }
     }
 
+*/
     // астрономические данные
     private void ParseDataAstro(String query) {
         try {
@@ -134,5 +137,20 @@ public class WunderGroundWheather extends WeatherAbstract {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void getActionByName(String name, Map<String, IAction> it) {
+
+    }
+
+    @Override
+    protected void getActionById(int id, Map<String, IAction> it) {
+
+    }
+
+    @Override
+    protected void getActionByCoordinate(double latitude, double longitude, Map<String, IAction> it) {
+
     }
 }
