@@ -1,6 +1,7 @@
 package com.intemic.Weather;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,29 @@ import static com.intemic.Weather.WIND_ENUM.*;
 /**
  * Created by Anton on 19.01.2017.
  */
+
+class ENotConnection extends Exception{
+  public  ENotConnection(){
+    super("Остутсвует подключение");
+  }
+
+  public ENotConnection(String message){
+    super("Остутсвует подключение : " + message);
+  }
+}
+
+class ENotData extends Exception{
+  public ENotData(){
+    super();
+  }
+
+  public ENotData(String message){
+    super(message);
+  }
+};
+
 public abstract class WeatherAbstract implements IWeather {
+    private  final String TEST_URL = "http://www.google.ru/"; //"http://api.openweathermap.org"; //"http://www.google.ru/"; //http://www.ya.ru";
     protected static LinkedHashMap<Integer, String> wnd = new LinkedHashMap<>();
     protected double temperature;
     protected int atmPressure, windSpeed;
@@ -48,8 +71,10 @@ public abstract class WeatherAbstract implements IWeather {
 
     public void getData(int id) {
         try {
+            // проверим соединение
+            testConnection();
             parseData(connect(getURLById(id)));
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Не удалось обновить данные - " + e.getMessage());
         }
     }
@@ -61,8 +86,10 @@ public abstract class WeatherAbstract implements IWeather {
     public void getData(double latitude, double longitude) {
         // latitude - широта, longitude - долгота
         try {
+            // проверим соединение
+            testConnection();
             parseData(connect(getURLByCoordinate(latitude, longitude)));
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Не удалось обновить данные - " + e.getMessage());
         }
     }
@@ -218,27 +245,62 @@ public abstract class WeatherAbstract implements IWeather {
 
     abstract void parseData(String query) throws IOException;
 
-    protected String connect(String urlSource) throws IOException {
+    protected String connect(String urlSource) throws ENotData {
         String query = null, line = null;
         StringBuilder sb = new StringBuilder();
+        BufferedReader br = null;
 
-//        try {
-        URL url = new URL(urlSource);
-        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-        // соберем все в кучу
-        while ((line = br.readLine()) != null)
-            sb.append(line + "\n");
-        query = sb.toString();
-        // а это уже печалька
-        if (query == "")
-            throw new IOException("Нет данных");
-/*
-        } catch (IOException e) {
-            throw new RuntimeException("Не удалось установить соединение");
+        try{
+            URL url = new URL(urlSource);
+            br = new BufferedReader(new InputStreamReader(url.openStream()));
+            // соберем все в кучу
+            while ((line = br.readLine()) != null)
+                sb.append(line + "\n");
+            query = sb.toString();
+            // а это уже печалька
+            if (query.isEmpty())
+                throw new RuntimeException("Нет данных");
+
+        } catch (IOException io) {
+            throw new ENotData("Ресурс не доступен : " + io.getMessage());
+        } catch (RuntimeException re){
+            throw new ENotData(re.getMessage());
+        // неизвестная ошибка
+        } catch (Exception ex){
+            throw new ENotData(ex.getMessage());
+        }finally {
+           if (br != null)
+               try {
+                   br.close();
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
         }
-*/
-        return query;
 
+        return query;
+    }
+
+    // проверчем наличие соединения
+    protected void testConnection() throws ENotConnection {
+        HttpURLConnection urlConnection =null;
+
+        try {
+            urlConnection = (HttpURLConnection)new URL(TEST_URL).openConnection();
+            urlConnection.setRequestMethod("HEAD");
+            urlConnection.setUseCaches(false);
+            urlConnection.connect();
+            if (urlConnection.getResponseCode() != HttpURLConnection.HTTP_OK)
+                throw new ENotConnection(urlConnection.getResponseMessage());
+
+            System.out.println("Соединение : OK");
+        }catch (ENotConnection en){
+            throw new ENotConnection();
+        }catch (Exception ex){
+          throw new ENotConnection(ex.getMessage());
+        }finally {
+          if ( urlConnection != null)
+            urlConnection.disconnect();
+        }
     }
 
 }

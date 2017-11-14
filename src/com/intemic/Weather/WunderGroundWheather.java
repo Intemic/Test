@@ -25,21 +25,6 @@ public class WunderGroundWheather extends WeatherAbstract {
     private final String QUERY = "61.25,73.42";
     //private static final String ICON_URL = "http://openweathermap.org/img/w/";
 
-/*
-    WunderGroundWheather(int id) {
-      //  super(id);
-        //String URL;
-        // дополнительные данные
-       // ParseDataAstro(connect(getURLAstroById(id)));
-    }
-
-    WunderGroundWheather(double latitude, double longitude) {
-        // latitude - широта, longitude - долгота
-        //super(latitude, longitude);
-        // дополнительные данные
-       // ParseDataAstro(connect(getURLAstroByCoordinate(latitude, longitude)));
-    }
-*/
     public static void main(String[] arg) {
         //IWeather iw = new WunderGroundWheather(61.25, 73.42);
         IWeather iw = new WunderGroundWheather();
@@ -56,7 +41,7 @@ public class WunderGroundWheather extends WeatherAbstract {
     }
 
     public final int getIdByName(String name) {
-      return -1;
+      throw  new RuntimeException("Не реализованно");
     }
 
     public final String getURLAstroById(int id) {
@@ -109,7 +94,7 @@ public class WunderGroundWheather extends WeatherAbstract {
             JsonNode image = mainNode.get("image");
             try {
                 weatherIcon = connect(image.get("url").asText()).getBytes();
-            } catch (RuntimeException e) {
+            } catch (Exception e) {
                 weatherIcon = null;
             }
 

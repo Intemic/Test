@@ -28,7 +28,7 @@ public class OpenWeather extends WeatherAbstract {
             iw.getData("Surgut");
             System.out.println(iw);
         } catch ( Exception ie){
-            System.out.println("Не удалось обновить данные");
+            System.out.println(ie.getMessage());
         }
 //        iw.getData(61.25, 73.416672);
     }
@@ -57,7 +57,7 @@ public class OpenWeather extends WeatherAbstract {
             try {
                 saveFile(FILE_CITY, connect(CITY_URL));
                 result = getIdByName(name);
-            } catch (IOException ie) {
+            } catch (Exception ie) {
                 throw new RuntimeException("Не удалось найти соответствие города - id ");
             }
         } catch (Exception ex) {
@@ -108,7 +108,7 @@ public class OpenWeather extends WeatherAbstract {
             // иконка
             try {
                 weatherIcon = connect(ICON_URL + weatherdNode.elements().next().get("icon").asText() + ".png").getBytes();
-            } catch (RuntimeException e) {
+            } catch (Exception e) {
                 weatherIcon = null;
             }
 
