@@ -42,6 +42,7 @@ class ENotData extends Exception{
 
 public abstract class WeatherAbstract implements IWeather {
     private  final String TEST_URL = "http://www.google.ru/"; //"http://api.openweathermap.org"; //"http://www.google.ru/"; //http://www.ya.ru";
+    protected final Map<String, IAction> items = new LinkedHashMap<String, IAction>();
     protected static LinkedHashMap<Integer, String> wnd = new LinkedHashMap<>();
     protected double temperature;
     protected int atmPressure, windSpeed;
@@ -65,26 +66,43 @@ public abstract class WeatherAbstract implements IWeather {
 
     abstract int getIdByName(String name);
 
-    abstract protected String getURLById(int id);
+   // abstract protected Map<String, IAction> getActionByName(String name);
 
-    abstract protected String getURLByCoordinate(double latitude, double longitude);
+   // abstract protected String getURLById(int id);
+
+    abstract protected Map<String, IAction> getActionById(int id);
+
+//    abstract protected String getURLByCoordinate(double latitude, double longitude);
+
+    abstract protected Map<String, IAction> getActionByCoordinate(double latitude, double longitude);
+
+
+    protected void run(){
+        for (String url : items.keySet())
+          if (items.get(url) != null)
+              ((IAction)items.get(url)).process(url);
+    }
 
     public void getData(int id) {
-        try {
+/*        try {
             // проверим соединение
             testConnection();
             parseData(connect(getURLById(id)));
         } catch (Exception e) {
             throw new RuntimeException("Не удалось обновить данные - " + e.getMessage());
         }
+*/
+      getActionById(id);
+      run();
     }
 
     public void getData(String name) {
-        getData(getIdByName(name));
+       getData(getIdByName(name));
     }
 
     public void getData(double latitude, double longitude) {
         // latitude - широта, longitude - долгота
+/*
         try {
             // проверим соединение
             testConnection();
@@ -92,6 +110,9 @@ public abstract class WeatherAbstract implements IWeather {
         } catch (Exception e) {
             throw new RuntimeException("Не удалось обновить данные - " + e.getMessage());
         }
+*/
+      getActionByCoordinate(latitude, longitude);
+      run();
     }
 
     protected String readFile(String fileName) throws IOException {

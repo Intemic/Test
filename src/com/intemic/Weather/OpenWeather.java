@@ -21,6 +21,7 @@ public class OpenWeather extends WeatherAbstract {
     private final String CITY_URL = "http://openweathermap.org/help/city_list.txt";
     private final String APPID = "495f7755c71feb8503704b3d82f9b0c8";
     private final String FILE_CITY = "OpenWeather_City.txt";
+    //protected Map<>
 
     public static void main(String[] arg) {
         IWeather iw = new OpenWeather();

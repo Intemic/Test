@@ -12,6 +12,11 @@ enum WIND_ENUM {WIND_MC, WIND_KH};
 /**
  * Created by Anton on 18.01.2017.
  */
+
+interface IParser{
+  void process(String URL);
+}
+
 public interface IWeather {
     // температура
     String getTemperature(TEMP_ENUM format);
