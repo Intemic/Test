@@ -280,7 +280,7 @@ public abstract class WeatherAbstract implements IWeather {
         return query;
     }
 
-    // проверчем наличие соединения
+    // проверяем наличие соединения
     protected void testConnection() throws ENotConnection {
         HttpURLConnection urlConnection =null;
 
