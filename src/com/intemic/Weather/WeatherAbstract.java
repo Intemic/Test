@@ -77,13 +77,13 @@ public abstract class WeatherAbstract implements IWeather {
     abstract protected void getActionByCoordinate(double latitude, double longitude, Map<String, IAction> it);
 
 
-    protected void run(){
+    private void run(){
         for (String url : items.keySet())
           if (items.get(url) != null)
               ((IAction)items.get(url)).process(url);
     }
 
-    public void getData(int id) {
+    public final void getData(int id) {
 /*        try {
             // проверим соединение
             testConnection();
@@ -96,13 +96,13 @@ public abstract class WeatherAbstract implements IWeather {
       run();
     }
 
-    public void getData(String name) {
+    public final void getData(String name) {
        //getData(getIdByName(name));
         getActionByName(name, items);
         run();
     }
 
-    public void getData(double latitude, double longitude) {
+    public final void getData(double latitude, double longitude) {
         // latitude - широта, longitude - долгота
 /*
         try {

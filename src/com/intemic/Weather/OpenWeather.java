@@ -12,6 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import static com.intemic.Weather.Processor.connect;
+
 /**
  * Created by Anton on 18.01.2017.
  */
@@ -100,7 +102,7 @@ public class OpenWeather extends WeatherAbstract {
         } catch (IOException e) {
             // пытаемся вытянуть файл если его еще нет
             try {
-                saveFile(FILE_CITY, Processor.connect(CITY_URL));
+                saveFile(FILE_CITY, connect(CITY_URL));
                 result = getIdByName(name);
             } catch (Exception ie) {
                 throw new RuntimeException("Не удалось найти соответствие города - id ");
